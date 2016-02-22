@@ -8,6 +8,7 @@
 #include <functional>
 #include <algorithm>
 #include <climits>
+#include <numeric>
 
 using namespace std;
 
