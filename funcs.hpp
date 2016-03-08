@@ -448,4 +448,19 @@ bool knight2(vector<vector<char>> &board) {
 }
 
 
+int findleast2power(int x) {
+	
+	int temp = 1;
+	int count = 1;
+
+	while(temp < x) {
+
+		temp >>= 1;
+		++ count;
+
+	}
+	return count;
+}
+
+
 #endif /* funcs_h */
