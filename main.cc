@@ -1,6 +1,6 @@
 #include "utils.h"
-#include "funcs.hpp"
-#include "test.hpp"
+#include "funcs.inc"
+#include "test.inc"
 
 // you can use includes, for example:
 // #include <algorithm>

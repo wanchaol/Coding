@@ -6,7 +6,7 @@
 //  Copyright © 2016 Wanchao Liang. All rights reserved.
 //
 
-#include "funcs.hpp"
+#include "funcs.inc"
 
 #ifndef test_h
 #define test_h

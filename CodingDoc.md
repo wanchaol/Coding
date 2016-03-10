@@ -1,6 +1,6 @@
 ## Coding Problems 
 
-### Boolean Parenthesation Problem 
+#### Boolean Parenthesation Problem 
 
 Given a boolean expression with following symbols.
 
@@ -58,4 +58,36 @@ Base Cases:
 If we draw recursion tree of above recursive solution, we can observe that it many overlapping subproblems. Like other dynamic programming problems, it can be solved by filling a table in bottom up manner. 
 
 The C++ implementation is under the directory. 
+
+#### Permutations
+
+Given a collection of distinct numbers, return all possible permutations.
+
+For example,
+[1,2,3] have the following permutations:
+
+	[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].
+
+Solution: find recursive relationship!!!
+
+Basic idea: permutation of A[1..n] equals to
+
+	A[1] + permutation of (A[1..n] - A[1])
+	A[2] + permutation of (A[1..n] - A[2])
+	...
+	A[n] + permutation of (A[1..n] - A[n])
+
+Backtracking, with swap between the starting index and the looping variable. 
+
+
+
+#### Combinations 
+
+Key: Select the first one of the 1-n as the first element of a combination, then select k-1 numbers starting from the i+1 index of the array(since i is selected!). After recursive, remove the current i selection, then select the second,third....of 1-n as the first one. 
+
+See the code in the directory. 
+
+
+#### Combination Sum II 
+Need to check duplicate, since after it has been sorted, the there will be two duplicates adjacent, and backtrack the duplicates will yields the duplicates in the final results. 
 
