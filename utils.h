@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <climits>
 #include <numeric>
+#include <bitset>
 
 using namespace std;
 
