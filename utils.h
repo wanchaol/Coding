@@ -33,6 +33,13 @@ struct Point {
     ~Point() = default;
 };
 
+struct Interval {
+	int start;
+	int end;
+	Interval():start(0), end(0) {}
+	Interval(int a, int b):start(a), end(b) {}
+	
+};
 
 
 string serialize(TreeNode *root) {
@@ -42,7 +49,7 @@ string serialize(TreeNode *root) {
     level.push(root);
     while (!level.empty()) {
         size_t n = level.size();
-        for (int i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++) {
             TreeNode* node = level.front(); level.pop();
 //            if(level.empty()) {
 //                nodes.push_back(node ? to_string(node->val) : "null");
@@ -74,7 +81,7 @@ TreeNode* deserialize(string data) {
     level.push(root);
     while (!level.empty()) {
         size_t n = level.size();
-        for (int i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++) {
             TreeNode* node = level.front(); level.pop();
             if (getline(ss, vs, ',') && vs != "null") {
                 node->left = new TreeNode(stoi(vs));
