@@ -1,4 +1,4 @@
-//segment tree for perferct binary tree
+//segment tree for perferct binary tree, also works for general tree!! explaination see evernote
 //
 #include "utils.h"
 
