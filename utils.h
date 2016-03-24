@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <list>
 #include <stack>
 #include <queue>
 #include <unordered_map>
