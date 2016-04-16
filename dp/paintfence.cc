@@ -1,4 +1,6 @@
-#include "utils.h"
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#include "../utils.h"
+#include "../catch.hpp"
 
 class Solution {
 	public:
@@ -23,10 +25,9 @@ class Solution {
 		}
 };
 
-int main(int argc, char *argv[])
-{
-	Solution sol;
-	cout<< sol.numWays(10, 5) << endl;
+TEST_CASE( "", "[numWays]" ) {
 
-	return 0;
+
+
 }
+

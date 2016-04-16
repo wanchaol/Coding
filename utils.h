@@ -13,6 +13,7 @@
 #include <numeric>
 #include <bitset>
 #include <random>
+#include <regex>
 
 using namespace std;
 
