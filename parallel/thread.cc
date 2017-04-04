@@ -1,40 +1,31 @@
-#include "../utils.h"
-#include <thread>
 #include <mutex>
+#include <thread>
+#include "../utils.h"
 
 static const int num_threads = 10;
 
-
 mutex m;
 
-
 void call_from_thread(int tid) {
-
-	m.lock();
-	cout<< "Launched by thread "<< tid <<endl;
-	m.unlock();
+    m.lock();
+    cout << "Launched by thread " << tid << endl;
+    m.unlock();
 }
 
+int main(int argc, char *argv[]) {
+    thread t[num_threads];
 
-int main(int argc, char *argv[])
-{
+    for (int i = 0; i < num_threads; ++i) {
+        t[i] = thread(call_from_thread, i);
+    }
 
-	thread t[num_threads];
+    m.lock();
+    cout << "Launched from the main" << endl;
+    m.unlock();
 
-	for (int i = 0; i < num_threads; ++i) {
-		t[i] = thread(call_from_thread, i);
-	}
+    for (int i = 0; i < num_threads; ++i) {
+        t[i].join();
+    }
 
-	m.lock();
-	cout<<"Launched from the main"<<endl;
-	m.unlock();
-	
-	for (int i = 0; i < num_threads; ++i) {
-		t[i].join();
-	}
-	
-
-	return 0;
-
+    return 0;
 }
-

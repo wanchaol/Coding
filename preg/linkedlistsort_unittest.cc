@@ -1,207 +1,192 @@
-//WhatsApp Coding Challenge by Wanchao Liang
 
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do
+                           // this in one cpp file
 #include "../catch.hpp"
 
-//the new linkedlist data type
+// the new linkedlist data type
 class LinkedList {
-private:
+   private:
+    struct ListNode {
+        int val;
+        ListNode *next;
+        ListNode(int v) : val(v), next(nullptr) {}
+    };
 
-	struct ListNode {
-		int val;
-		ListNode *next;
-		ListNode(int v): val(v), next(nullptr) {}
-	};
+    ListNode *head;
+    ListNode *tail;
+    int listlen = 0;
 
-	ListNode *head;
-	ListNode *tail;
-	int listlen = 0;
+    // merge two sorted linked list
+    ListNode *MergeTwoSortedLists(ListNode *A, ListNode *B) {
+        ListNode *dummy = new ListNode(0);
 
-	//merge two sorted linked list
-	ListNode *MergeTwoSortedLists(ListNode *A, ListNode *B) {
-	
-		ListNode *dummy = new ListNode(0);
+        ListNode *cur = dummy;
 
-		ListNode *cur = dummy;
+        while (A && B) {
+            if (A->val < B->val) {
+                cur->next = A;
+                A = A->next;
+            } else {
+                cur->next = B;
+                B = B->next;
+            }
+            cur = cur->next;
+        }
 
-		while(A && B) {
-			if (A->val < B->val) {
-				cur->next = A;
-				A = A->next;
-			}
-			else {
-				cur->next = B;
-				B = B->next;
-			}
-			cur = cur->next;
+        if (A != nullptr) {
+            cur->next = A;
+        } else {
+            cur->next = B;
+        }
 
-		}
+        cur = dummy->next;
 
-		if (A != nullptr) {
-			cur->next = A;
-		}
-		else {
-			cur->next = B;
-		}
+        delete dummy;
 
-		cur = dummy->next;
+        return dummy->next;
+    }
 
-		delete dummy;
+    // begin the merge sort implementation
+    ListNode *GetMiddle(ListNode *p) {
+        if (p == nullptr) {
+            return p;
+        }
 
-		return dummy->next;
-	}
+        ListNode *slow = p;
+        ListNode *fast = p;
 
-	//begin the merge sort implementation
-	ListNode *GetMiddle(ListNode *p) {
-		if (p == nullptr) {
-			return p;
-		}
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
 
-		ListNode *slow = p;
-		ListNode *fast = p;
+        return slow;
+    }
 
-		while(fast->next && fast->next->next) {
-			slow = slow->next;
-			fast = fast->next->next;
-		}
+    // The underlying merge sort function
+    ListNode *MergeSort(ListNode *left) {
+        if (left == nullptr || left->next == nullptr) {
+            return left;
+        }
 
-		return slow;
+        ListNode *middle = GetMiddle(left);
+        // std::cout<<"middle value"<<middle->val<<std::endl;
 
-	}
+        ListNode *right = middle->next;
+        middle->next = nullptr;
 
-	//The underlying merge sort function
-	ListNode *MergeSort(ListNode *left) {
-		if (left == nullptr || left -> next == nullptr) {
-			return left;
-		}
+        return MergeTwoSortedLists(MergeSort(left), MergeSort(right));
+    }
 
-		ListNode *middle = GetMiddle(left);
-		//std::cout<<"middle value"<<middle->val<<std::endl;
-		
-		ListNode *right = middle->next;
-		middle->next = nullptr;
+   public:
+    LinkedList() : head(nullptr), tail(nullptr), listlen(0) {}
 
-		return MergeTwoSortedLists(MergeSort(left), MergeSort(right));
-		
-	}
+    ~LinkedList() {
+        ListNode *p;
+        while (head) {
+            p = head->next;
+            delete head;
+            head = p;
+        }
+    }
 
-public:
+    int size() const { return listlen; }
 
-	LinkedList(): head(nullptr), tail(nullptr),listlen(0) {}
+    void push_back(int v) {
+        ListNode *node = new ListNode(v);
 
-	~LinkedList() {
-		ListNode *p;
-		while(head) {
-			p = head->next;
-			delete head;
-			head = p;
-		}
-	}
+        if (!head) {
+            head = node;
+            tail = head;
 
-	int size() const { return listlen;}
+        } else {
+            tail->next = node;
+            tail = tail->next;
+        }
+        ++listlen;
+    }
 
-	void push_back(int v) {
-		ListNode *node = new ListNode(v);
-		
-		if (!head) {
-			head = node;
-			tail = head;
-			
-		}
-		else {
-			tail->next = node;
-			tail = tail->next;
-		}
-		++ listlen;
+    void push_front(int v) {
+        ListNode *node = new ListNode(v);
+        node->next = head;
+        head = node;
+        ++listlen;
+    }
 
-	}
+    std::string printList() const {
+        ListNode *p = head;
+        std::string str;
 
-	void push_front(int v) {
-		ListNode *node = new ListNode(v);
-		node->next = head;
-		head = node;
-		++listlen;
-	}
-	
-	std::string printList() const {
-		ListNode *p = head;
-		std::string str;
+        if (head == nullptr) {
+            return "";
+        }
 
-		if (head == nullptr) {
-			return "";
-		}
+        while (p) {
+            if (p != tail) {
+                str += std::to_string(p->val) + "->";
+            } else {
+                str += std::to_string(p->val);
+            }
 
-		while(p) {
-			if (p!= tail) {
-				str += std::to_string(p->val) + "->";
-			}
-			else {
-				str += std::to_string(p->val);
-			}
+            p = p->next;
+        }
 
-			p = p->next;
-		}
+        return str;
+    }
+    std::vector<int> getList() const {
+        ListNode *p = head;
+        std::vector<int> reslist;
 
-		return str;
+        if (head == nullptr) {
+            return reslist;
+        }
 
-	}
-	std::vector<int> getList() const {
-		ListNode *p = head;
-		std::vector<int> reslist;
+        while (p) {
+            if (p != tail) {
+                reslist.push_back(p->val);
+            } else {
+                reslist.push_back(p->val);
+            }
 
-		if (head == nullptr) {
-			return reslist;
-		}
+            p = p->next;
+        }
 
-		while(p) {
-			if (p!= tail) {
-				reslist.push_back(p->val);
-			}
-			else {
-				reslist.push_back(p->val);
-			}
+        return reslist;
+    }
 
-			p = p->next;
-		}
+    void clear() {
+        this->~LinkedList();
+        listlen = 0;
+    }
 
-		return reslist;
+    // The wrapper sort function
+    void merge_sort() {
+        if (head == nullptr) {
+            return;
+        }
 
-	}
-	
-	void clear() {
-		this->~LinkedList();
-		listlen = 0;
-	}
-
-	//The wrapper sort function
-	void merge_sort() {
-		if (head == nullptr) {
-			return;
-		}
-
-		head = MergeSort(head);
-		//reset the tail
-		ListNode *p = head;
-		while(p->next) {
-			p = p->next;
-		}
-		this->tail = p;
-	}
-
-
+        head = MergeSort(head);
+        // reset the tail
+        ListNode *p = head;
+        while (p->next) {
+            p = p->next;
+        }
+        this->tail = p;
+    }
 };
 
-TEST_CASE( "Reverse Linked List Order", "[linkedlisttest]" ) { //REQUIRE( Factorial(1) == 1 );
+TEST_CASE("Reverse Linked List Order",
+          "[linkedlisttest]") {  // REQUIRE( Factorial(1) == 1 );
 
-	LinkedList a;
+    LinkedList a;
 
-	for (int i = 0; i < 20; ++i) {
-		a.push_back(19-i);
-	}
+    for (int i = 0; i < 20; ++i) {
+        a.push_back(19 - i);
+    }
 
-	a.merge_sort();
-	std::vector<int> sorted = a.getList();
-	for (int i = 0; i < 20; ++i) {
-		REQUIRE(sorted[i] == i);
-	}
+    a.merge_sort();
+    std::vector<int> sorted = a.getList();
+    for (int i = 0; i < 20; ++i) {
+        REQUIRE(sorted[i] == i);
+    }
 }

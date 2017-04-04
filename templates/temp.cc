@@ -1,5 +1,4 @@
-template <typename T> class ClassA {
-
-	T member;
-
+template <typename T>
+class ClassA {
+    T member;
 }
