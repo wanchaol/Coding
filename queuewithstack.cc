@@ -1,13 +1,11 @@
 #include "utils.h"
 
-
 class Queue {
     stack<int> input, output;
-public:
+
+   public:
     // Push element x to the back of queue.
-    void push(int x) {
-        input.push(x);
-    }
+    void push(int x) { input.push(x); }
 
     // Removes the element from in front of queue.
     void pop(void) {
@@ -17,8 +15,8 @@ public:
 
     // Get the front element.
     int peek(void) {
-        if(output.empty()) {
-            while(!input.empty()) {
+        if (output.empty()) {
+            while (!input.empty()) {
                 output.push(input.top());
                 input.pop();
             }
@@ -27,7 +25,5 @@ public:
     }
 
     // Return whether the queue is empty.
-    bool empty(void) {
-        return input.empty() && output.empty();
-    }
+    bool empty(void) { return input.empty() && output.empty(); }
 };

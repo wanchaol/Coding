@@ -1,4 +1,4 @@
-CC = g++
+	CC = g++
 CFLAGS = -std=c++11
 
 #Tell make to make one .out file for each .cpp file found in the current directory

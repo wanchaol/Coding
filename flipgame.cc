@@ -1,46 +1,37 @@
 #include "utils.h"
 
-class Solution
-{
-public:
-	vector<string> generatePossibleNextMoves(string s) {
-		vector<string> res{};
+class Solution {
+   public:
+    vector<string> generatePossibleNextMoves(string s) {
+        vector<string> res{};
 
-		if(s.size() == 0)
-			return res;
+        if (s.size() == 0) return res;
 
-		//cout<<s.size() << " "<< s.size() - 1<<endl;
+        // cout<<s.size() << " "<< s.size() - 1<<endl;
 
-		for(size_t i = 0; i < s.size()-1; ++i) {
-			if(s[i] != '+')
-				continue;
+        for (size_t i = 0; i < s.size() - 1; ++i) {
+            if (s[i] != '+') continue;
 
-			if(s[i+1] == '+') {
-				string temp = s;
-				temp[i] = '-';
-				temp[i+1] = '-';
+            if (s[i + 1] == '+') {
+                string temp = s;
+                temp[i] = '-';
+                temp[i + 1] = '-';
 
-				res.push_back(temp);
+                res.push_back(temp);
+            }
+        }
 
-			}
+        return res;
+    }
 
-		}
-
-		return res;
-
-
-	}
-
-private:
-/* data */
+   private:
+    /* data */
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    Solution sol;
 
-	Solution sol;
+    cout << sol.generatePossibleNextMoves("");
 
-	cout<<sol.generatePossibleNextMoves("");
-
-	return 0;
+    return 0;
 }

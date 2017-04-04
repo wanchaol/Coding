@@ -1,73 +1,61 @@
 #include "utils.h"
 
-class Solution
-{
-public:
-	// Encodes a tree to a single string.
-    string serialize(TreeNode* root) {
-        //string res = nullptr;
+class Solution {
+   public:
+    // Encodes a tree to a single string.
+    string serialize(TreeNode *root) {
+        // string res = nullptr;
         ostringstream osm;
         streehelper(root, osm);
         return osm.str();
-        
     }
 
     // Decodes your encoded data to tree.
-    TreeNode* deserialize(string data) {
-        
+    TreeNode *deserialize(string data) {
         istringstream istm(data);
         return buildtree(istm);
-    
     }
 
-private:
-	/* data */
+   private:
+    /* data */
 
-	void streehelper(TreeNode *root, ostringstream &s) {
+    void streehelper(TreeNode *root, ostringstream &s) {
+        if (root == nullptr) {
+            s << "# ";
+        } else {
+            s << root->val << " ";
+            streehelper(root->left, s);
+            streehelper(root->right, s);
+        }
+    }
 
-		if (root == nullptr) {
-			s << "# ";
-		}
-		else {
-			s << root->val << " ";
-			streehelper(root->left, s);
-			streehelper(root->right, s);
-		}
+    TreeNode *buildtree(istringstream &ss) {
+        string val;
+        ss >> val;
 
-	}
+        if (val == "#") {
+            return nullptr;
 
-	TreeNode* buildtree(istringstream &ss) {
-		string val;
-		ss >> val;
+        } else {
+            TreeNode *root = new TreeNode(stoi(val));
+            root->left = buildtree(ss);
+            root->right = buildtree(ss);
 
-		if (val == "#") {
-			return nullptr;
-
-		}
-		else {
-			TreeNode *root = new TreeNode(stoi(val));
-			root->left = buildtree(ss);
-			root->right = buildtree(ss);
-			
-			return root;
-		}
-
-	}
-
-
+            return root;
+        }
+    }
 };
 
-int main(int argc, char *argv[])
-{
-	Solution sol;
-	
-	string str = "1,2,3,null,null,4,5";
+int main(int argc, char *argv[]) {
+    Solution sol;
 
-	TreeNode *root = deserialize(str);
+    string str = "1,2,3,null,null,4,5";
 
-	//cout<<sol.serialize(root);
+    TreeNode *root = deserialize(str);
 
-	sol.deserialize(sol.serialize(root));
-	
-	return 0;
+    // cout<<sol.serialize(root);
+
+    sol.deserialize(sol.serialize(root));
+
+    return 0;
 }

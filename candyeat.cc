@@ -1,32 +1,26 @@
 #include "utils.h"
 
-class Solution
-{
-public:
+class Solution {
+   public:
+    int EatCandies(vector<int> &A, int k) {
+        priority_queue<int> q;
+        int sum = 0;
 
-	int EatCandies(vector<int> &A, int k) {
+        for (auto item : A) {
+            q.push(item);
+        }
 
-		priority_queue<int> q;
-		int sum = 0;
+        for (int i = 0; i < k; ++i) {
+            int maxitem = q.top();
+            q.pop();
 
-		for (auto item : A) {
-			q.push(item);
-		}
+            sum += maxitem;
+            q.push(maxitem / 2);
+        }
 
-		for (int i = 0; i < k; ++i) {
-			int maxitem = q.top();
-			q.pop();
+        return sum;
+    }
 
-			sum+= maxitem;
-			q.push(maxitem/2);
-			
-		}
-
-
-		return sum;
-	}
-
-private:
-	/* data */
+   private:
+    /* data */
 };
-

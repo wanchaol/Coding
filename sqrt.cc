@@ -1,27 +1,22 @@
 #include "utils.h"
 
-class Solution
-{
-public:
-	int sqrt(int x) {
+class Solution {
+   public:
+    int sqrt(int x) {
+        int r = x;
 
-		int r = x;
+        while (r * r > x) {
+            r = (r + x / r) / 2;
+        }
 
-		while(r * r > x){
-			r = (r + x/r)/2;
-		}
+        return r;
+    }
 
-		return r;
-
-	}
-
-private:
-	
+   private:
 };
 
-int main(int argc, char *argv[])
-{
-	Solution sol;
-	cout<<sol.sqrt(50);
-	return 0;
+int main(int argc, char *argv[]) {
+    Solution sol;
+    cout << sol.sqrt(50);
+    return 0;
 }

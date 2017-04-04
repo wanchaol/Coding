@@ -1,25 +1,23 @@
 #include "utils.h"
 
-
 class Vector2D {
     vector<vector<int>>::iterator iter, iend;
     int index = 0;
-public:
+
+   public:
     Vector2D(vector<vector<int>>& vec2d) {
         iter = vec2d.begin();
         iend = vec2d.end();
     }
 
-    int next() {
-        return (*iter)[index ++];
-    }
+    int next() { return (*iter)[index++]; }
 
     bool hasNext() {
-        while(iter != iend && index == (*iter).size()) {
-            ++ iter;
+        while (iter != iend && index == (*iter).size()) {
+            ++iter;
             index = 0;
         }
-        return iter!= iend;
+        return iter != iend;
     }
 };
 

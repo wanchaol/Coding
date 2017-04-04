@@ -1,45 +1,35 @@
 #include "utils.h"
 
-class Solution
-{
-public:
+class Solution {
+   public:
+    bool ifCanWin(string &s) {
+        for (size_t i = 0; i < s.size() - 1; ++i) {
+            if (s[i] == '+' && s[i + 1] == '+') {
+                s[i] = '-';
+                s[i + 1] = '-';
 
-	bool ifCanWin(string &s) {
+                if (!ifCanWin(s)) {
+                    // if there's any one way the next player can't win, take it
+                    // and you'll win
+                    return true;
+                }
 
-		for(size_t i = 0; i < s.size() - 1; ++ i) {
-			if (s[i] == '+' && s[i+1] == '+') {
-				s[i] = '-';
-				s[i + 1] = '-';
+                s[i] = '+';
+                s[i + 1] = '+';
+            }
+        }
+        return false;
+    }
 
-				if (!ifCanWin(s)) {
-					//if there's any one way the next player can't win, take it and you'll win
-					return true;
-				}
+    bool canWin(string s) {
+        // int start = 0;
+        if (s.size() == 0) return false;
 
-				s[i] = '+';
-				s[i + 1] = '+';
+        return ifCanWin(s);
+    }
 
-			}        
-
-		}
-		return false;
-
-	}
-
-	bool canWin(string s) {
-		//int start = 0;
-		if (s.size() == 0)
-			return false;
-
-		return ifCanWin(s);
-	}
-private:
-	/* data */
+   private:
+    /* data */
 };
 
-
-int main(int argc, char *argv[])
-{
-	
-	return 0;
-}
+int main(int argc, char *argv[]) { return 0; }
