@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++11 -I /usr/local/Cellar/eigen/3.2.8/include/eigen3/ 
+CFLAGS = -std=c++11 -I /usr/local/Cellar/eigen/3.3.3/include/eigen3/ 
 
 #Tell make to make one .out file for each .cpp file found in the current directory
 all: $(patsubst %.cc, %.out, $(wildcard *.cc))
