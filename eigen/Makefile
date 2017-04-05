@@ -9,3 +9,5 @@ all: $(patsubst %.cc, %.out, $(wildcard *.cc))
 #Then the command to create the .out file, probably you want to add further options to the g++ call.
 %.out: %.cc Makefile
 	$(CC) $(CFLAGS) $< -o $@ 
+clean:
+	rm -rf *.out
